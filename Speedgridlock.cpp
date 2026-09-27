@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 struct speedGridlock{
     enum cell{
@@ -7,11 +8,32 @@ struct speedGridlock{
         others,
         you
     };
+    enum moveTypes{
+        up,
+        left, 
+        down,
+        right,
+        strikeV,
+        strikeH
+    }
     int w, h;
     int yourX, yourY;
     int numberOfOthers = 0;
+    int decayw, decayh; // w and h decay amount
+    bool spleefActive = 0; // When spleef active, cells visited by any player become black after
+    vector<vector<cell>> board;
     void setup(){
-
+        cout << "Width, Height, Number of others?\n";
+        cin >> w >> h >> numberOfOthers;
+        board = vector<vector<cell>>(vector<cell>(w), h);
+        cout << "x, y of YOU?\n";
+        cin >> yourX >> yourY;
+        for (int i(0); i++<numberOfOthers;;){
+            cout << "x, y of Other Player " << i << endl;
+            int ox, oy;
+            cin >> ox >> oy;
+            board[oy][ox] = speedGridlock::cell::others;
+        }
     }
     void update(){
 
